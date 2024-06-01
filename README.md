@@ -18,5 +18,5 @@ This repository contains the instructions for install *FlodGuard* and a guide of
 *FlodGuard* is an open-source project to help students and professionals in different engeneering fields calculating *dique se dice dam pero no se extactameten para que es el programa*.
 
 <p align="center">
-  <img src="./assets/logo.png" alt="logo">
+  <img src="./assets/logo.png" alt="logo" width="500">
 </p>
