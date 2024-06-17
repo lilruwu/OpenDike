@@ -1,28 +1,8 @@
 import 'package:flutter/material.dart';
+import 'create_project_page.dart';
+import 'settings_page.dart'; // Importamos la página de ajustes desde el archivo correspondiente
 import 'package:file_picker/file_picker.dart';
-import 'settings_page.dart'; // Importa la página de configuración
 
-// Pantalla de creación de proyectos (simulada)
-class CreateProjectPage extends StatelessWidget {
-  const CreateProjectPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('New Project'),
-      ),
-      body: const Center(
-        child: Text(
-          'New Project Page',
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
-    );
-  }
-}
-
-// Pantalla principal
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -33,6 +13,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
 
   void create_project() {
     print("Create project");
@@ -66,9 +47,10 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             const Text(
               'Welcome to OpenDike!🌊',
-              style: TextStyle(fontSize: 50, color: Color.fromARGB(206, 59, 193, 255)),
+              // style: const TextStyle(fontSize: 50),
+              style: TextStyle(fontSize: 50, color: Color.fromARGB(206, 59, 193, 255)), // Change the color to blue
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 20), // Adding some space between the text and the buttons
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -128,28 +110,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-    );
-  }
-}
-
-// Punto de entrada de la aplicación
-void main() {
-  runApp(const MyApp());
-}
-
-// Clase principal de la aplicación
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'OpenDike Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 58, 175, 196)),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'OpenDike Demo🌊'),
     );
   }
 }

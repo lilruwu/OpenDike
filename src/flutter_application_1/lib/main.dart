@@ -14,6 +14,9 @@ class MyApp extends StatelessWidget {
       title: '🌊OpenDike Demo🌊',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 58, 175, 196)),
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'OpenDike Demo🌊'),
