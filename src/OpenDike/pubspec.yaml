@@ -1,5 +1,5 @@
-name: flutter_application_1
-description: "A new Flutter project."
+name: OpenDike
+description: "OpenDike is an open-source project aimed at assisting students and professionals with various hydraulic problems, particularly in calculating the resistance of a dike in abstract scenarios for exams or in real-world projects where miscalculations could potentially lead to the destruction of a small village beneath the dike. "
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -31,6 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   file_picker: ^8.0.7
+  flutter_math_fork: ^0.7.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -59,9 +60,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/logo.png
+    - assets/test.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
