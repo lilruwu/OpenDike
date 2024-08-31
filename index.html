@@ -1,183 +1,416 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Change the description wrt project -->
-  <meta name="description"
-    content="A Free and Open-Source hydraulic calculator for dike problems." />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-  <!-- stylesheets -->
-
-  <link rel="stylesheet" href="style.css">
-
-  <!-- You can add your own fonts from fonts.google.com -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
-
-  <!-- Default Script tags -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="index.js"></script>
-
-  <script>
-    tailwind.config = {
-      darkMode: "class",
-    };
-  </script>
-
-  <!-- Replace the title name -->
-  <title>OpenDike</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenDike Documentation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --color-bg: #f0f9ff;
+            --color-text: #1e3a8a;
+            --color-primary: #3b82f6;
+            --color-secondary: #e0f2fe;
+            --color-accent: #2563eb;
+            --color-card-bg: #ffffff;
+            --color-card-border: #bfdbfe;
+        }
+        .dark {
+            --color-bg: #0f172a;
+            --color-text: #e2e8f0;
+            --color-primary: #60a5fa;
+            --color-secondary: #1e3a8a;
+            --color-accent: #3b82f6;
+            --color-card-bg: #1e293b;
+            --color-card-border: #334155;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+            color: var(--color-text);
+            background-color: var(--color-bg);
+            transition: background-color 0.3s, color 0.3s;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .dark header {
+            background-color: rgba(15, 23, 42, 0.9);
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        nav a {
+            color: var(--color-text);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: var(--color-primary);
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--color-primary);
+        }
+        .nav-links {
+            display: flex;
+        }
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--color-text);
+        }
+        main {
+            padding: 4rem 0;
+        }
+        section {
+            margin-bottom: 6rem;
+        }
+        h2 {
+            color: var(--color-primary);
+            margin-bottom: 2rem;
+            font-size: 2.25rem;
+            font-weight: 700;
+            text-align: center;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .card {
+            background-color: var(--color-card-bg);
+            border: 1px solid var(--color-card-border);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--color-primary);
+            color: #ffffff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: var(--color-accent);
+        }
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--color-primary);
+            color: var(--color-primary);
+        }
+        .btn-outline:hover {
+            background-color: var(--color-primary);
+            color: #ffffff;
+        }
+        .btn-disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .btn-disabled:hover {
+            background-color: var(--color-primary);
+        }
+        footer {
+            background-color: var(--color-secondary);
+            color: var(--color-text);
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.pexels.com/photos/16952014/pexels-photo-16952014/free-photo-of-coast.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: #ffffff;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        .icon {
+            font-size: 2rem;
+            margin-right: 0.5rem;
+        }
+        #about-images {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        #about-images img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        #darkModeToggle {
+          background: none; /* Elimina el fondo del botón */
+          border: none; /* Elimina el borde del botón */
+          padding: 0; /* Elimina el relleno del botón */
+          margin: 0; /* Elimina el margen del botón */
+          cursor: pointer; /* Cambia el cursor al pasar sobre el botón para indicar que es clickeable */
+          outline: none; 
+        }
+        #about-images img.active {
+            opacity: 1;
+        }
+        .contribution-panel {
+            background-color: var(--color-secondary);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        .contribution-panel h2 {
+            color: var(--color-text);
+        }
+        .contribution-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: var(--color-bg);
+                padding: 1rem;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .contribution-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">OpenDike🌊</a>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#download">Download</a>
+                <a href="#docs">Docs</a>
+                <a href="#issues">Issues</a>
+            </div>
+            <button class="mobile-menu-btn">☰</button>
+            <button id="darkModeToggle">🌓</button>
+        </nav>
+    </header>
 
-<body style="font-family: 'Poppins', sans-serif; min-height: 100vh; display: flex; flex-direction: column;"
-  class="dark:bg-cyan-950 bg-sky-200 dark:text-white">
-  <!-- Header start here -->
-  <header class="w-full p-3 border-b dark:border-b  flex sticky top-0 z-10 dark:bg-slate-900 bg-white dark:text-white ">
-    <nav
-      class="w-full flex flex-col lg:flex-row md:flex-row sm:flex-row items-start lg:item-center md:item-center sm:item-center lg:justify-between md:justify-between sm:justify-between justify-start dark:text-white">
-      <ul>
-        <!-- You can change your logo name -->
-        <li class="font-mono text-xl">
-          <a href="./index.html">
-          OpenDike🌊
-        </a>
-        </li>
-      </ul>
-      <ul id="header-nav" class="mr-6 sm:flex md:flex lg:flex hidden">
-        <li class="mr-5 mb-3 mt-5 sm:mb-0 sm:mt-0 md:mb-0 md:mt-0 lg:mb-0 lg:mt-0">
-          <a href="#link3">Documentation</a>
-        </li>
-
-        <div>
-          <ul class="flex">
-            <!-- Change the href link to your respective social media accounts-->
-
-
-            <li class="mr-5 flex dark:hidden">
-              <a href="https://github.com/lilruwu/OpenDike"><img src="./assets/github-mark.svg" alt="GitHub Link" /></a>
-            </li>
-
-            <li class="mr-5 hidden dark:flex">
-                <a href="https://github.com/lilruwu/OpenDike"><img src="./assets/github-dark.svg" alt="GitHub Link" /></a>
-              </li>
-
-            <li class="mr-5 flex dark:hidden">
-                <p onclick="darkmode()">
-                  <img src="./assets/sun.svg" alt="sun Link" />
-                </p>
-              </li>
-              <li class="mr-5 hidden dark:flex">
-                <p onclick="lightmode()">
-                  <img src="./assets/sun-dark.svg" alt="sun Link" />
-                </p>
-         
-          </ul>
-        </div>
-      </ul>
-    </nav>
-
-    <div class="sm:hidden flex" onclick="OnclickOpenMenu()" id="open-menu">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd"
-          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
-          clip-rule="evenodd" />
-      </svg>
-    </div>
-    <div class="hidden" onclick="OnclickCloseMenu()" id="close-menu">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    </div>
-  </header>
-  <!-- Header ends here -->
-
-  <div class="flex flex-col md:flex-row lg:flex-row">
-    <!-- Side menu starts here -->
-    <nav class="flex ml-10 mt-7 md:fixed lg:fixed" data-spy="affix" data-offset-top="300" data-offset-bottom="200"
-      role="navigation">
-      <ul class="nav">
-        <li class="font-medium"><a href="#link1">Abstract</a></li>
-        <li class="font-medium"><a href="#link3">Documentation</a></li>
-        <li class="font-medium"><a href="#link6">Issues</a></li>
-      </ul>
-    </nav>
-    <!-- Side Menu ends here -->
-
-    <div class="pl-5 md:pl-[250px] lg:pl-[250px]">
-      <!-- Link1 start -->
-      <section id="link1">
-        <div class="h-full mt-10">
-          <p class="font-normal text-2xl">Abstract</p>
-          <img src="./assets/logo.png" alt="OpenDike" width="400">
-          <div style="text-align: justify;">
-            <p class="leading-0 w-3/4">
-              OpenDike is an open-source project aimed at assisting students and professionals with various hydraulic problems, particularly in calculating the resistance of a dike in abstract scenarios for exams or in real-world projects where miscalculations could potentially lead to the destruction of a small village beneath the dike.
-            </p>
-          </div>
-          
-        
-          
-        </div>
-    </section>
-
-        </section>
-      </section>
-      <!-- Link2 Ends -->
-
-      <!-- Link3 start -->
-      <section id="link3">
-        <div class="h-full mt-5">
-          <p class="font-normal text-2xl">Documentation</p>
-          
-            <p class="text-sm pt-5 pb-4">
-                OpenDike is under development, so the documentation is not available yet.
-
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>OpenDike</h1>
+                <p>An open-source hydraulic calculator for dike problems, helping you navigate the waters of complex calculations</p>
+                <a href="#download" class="btn">Get Started</a>
+            </div>
         </section>
 
-      <!-- Link6 starts -->
-      <section id="link6">
-        <div class="h-full mt-5">
-          <p class="font-normal text-2xl">Issues</p>
-          <p class="text-sm pt-5 pb-4">
-            If you have any issue please raise a PR in github
-            <a href="https://github.com/lilruwu/OpenDike" target="_blank"
-              class="bg-cyan-400 text-slate-900 rounded p-1 hover:text-sky-100">OpenDike</a>
-          </p>
+        <div class="container">
+            <section id="about">
+                <h2>About OpenDike</h2>
+                <div class="grid">
+                    <div id="about-images">
+                        <img src="/placeholder.svg?height=400&width=600&text=Hydraulic+Simulation" alt="Hydraulic Simulation" class="active">
+                        <img src="/placeholder.svg?height=400&width=600&text=Water+Flow+Analysis" alt="Water Flow Analysis">
+                        <img src="/placeholder.svg?height=400&width=600&text=Dike+Stress+Test" alt="Dike Stress Test">
+                        <img src="/placeholder.svg?height=400&width=600&text=Flood+Prevention+Model" alt="Flood Prevention Model">
+                    </div>
+                    <div>
+                        <p>OpenDike is an open-source project designed to assist students and professionals with various hydraulic problems. It excels in calculating the resistance of dikes in abstract scenarios for exams or in real-world projects where miscalculations could potentially lead to the flooding of areas protected by the dike.</p>
+                        <p>Our software helps you navigate the complexities of water management and dike engineering with precision and ease, ensuring the safety and reliability of hydraulic structures.</p>
+                        <a href="#" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="download">
+                <h2>Download OpenDike</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h3><i class="fab fa-windows icon"></i>Windows</h3>
+                        <p>Comming soon</p>
+                        <a href="#" class="btn btn-disabled"><i class="fas fa-download"></i> Download for Windows (Coming Soon)</a>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fab fa-apple icon"></i>macOS</h3>
+                        <p>Comming soon</p>
+                        <a href="#" class="btn btn-disabled"><i class="fas fa-download"></i> Download for macOS (Coming Soon)</a>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fab fa-linux icon"></i>Linux</h3>
+                        <p>Comming soon</p>
+                        <a href="#" class="btn btn-disabled"><i class="fas fa-download"></i> Download for Linux (Coming Soon)</a>
+                    </div>
+                    <div class="card">
+                        <h3><i class="fab fa-github icon"></i>Source Code</h3>
+                        <p>Latest build from main branch</p>
+                        <a href="https://github.com/lilruwu/OpenDike" class="btn btn-outline" target="_blank"><i class="fas fa-code-branch"></i> View on GitHub</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="docs">
+                <h2>Documentation</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h3>Getting Started</h3>
+                        <p>Quick guide to set up OpenDike</p>
+
+                        <ul>
+                            <li><a href="get-started.html">Installation Guide</a></li>
+                            <!-- <li><a href="#">Basic Guide</a></li> -->
+                            <li><a href="#">OpenDike in 5 minutes</a></li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>Advanced Topics</h3>
+                        <ul>
+                            <li><a href="#">Developer Docs</a></li>
+                            <!-- <li><a href="#">API Reference</a></li> -->
+                            <!-- <li><a href="#">Performance Tuning</a></li> -->
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>Resources</h3>
+                        <ul>
+                            <li><a href="#">Example Projects</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="https://github.com/lilruwu/OpenDike/discussions">Community Forums</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contribution" class="contribution-panel">
+                <h2>Support OpenDike</h2>
+                <p>Help us improve OpenDike by contributing or supporting our project.</p>
+                <div class="contribution-buttons">
+                    <a href="https://github.com/lilruwu/OpenDike" class="btn" target="_blank"><i class="fab fa-github"></i> Contribute on GitHub</a>
+                    <a href="#" class="btn btn-disabled"><i class="fab fa-patreon"></i> Support on Patreon (Coming Soon)</a>
+                </div>
+            </section>
+
+            <section id="issues">
+                <h2>Issues</h2>
+                <p>If you encounter any issues or have suggestions for improvement, please raise an issue on our GitHub repository.</p>
+                <a href="https://github.com/lilruwu/OpenDike/issues" class="btn" target="_blank"><i class="fab fa-github"></i> Report an Issue</a>
+            </section>
         </div>
-      </section>
-      <!-- Link6 ends -->
-    </div>
-  </div>
-  <!-- Footer starts here -->
-  <footer style="margin-top: auto;">
-    <div class="dark:bg-cyan-600 bg-cyan-800 h-38 py-1 px-1 mt-5">
-      <div tabindex="0" aria-label="footer"
-        class="focus:outline-none mx-auto container flex flex-col items-center justify-center">
-        <div class="text-black flex flex-col md:items-center f-f-l pt-0">
-          <div class="my-6 text-base text-color f-f-l">
-            <ul class="md:flex items-center">
-              <li class="cursor-pointer pt-4 lg:py-0">
-                <a href="./index.html"
-                  class="text-white dark:text-black focus:outline-none focus:underline hover:text-gray-200">Home
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="text-sm text-color mb-10 f-f-l">
-            <!-- Rename cleandocs with your respective name -->
-            <p tabindex="0" class="text-white dark:text-black focus:outline-none">
-              &copy; 2024 OpenDike. All rights reserved
-            </p>
-          </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 OpenDike. All rights reserved.</p>
+            
+            <div>
+                <a href="#">Privacy Policy</a> |
+                <a href="#">Terms of Service</a> |
+                <a href="#">Contact</a>
+            </div>
         </div>
-      </div>
-    </div>
-  </footer>
-  <!-- Footer ends here -->
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark');
+            localStorage.setItem('darkMode', body.classList.contains('dark'));
+        });
+
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            body.classList.add('dark');
+        }
+
+        // Rotating images
+        const images = document.querySelectorAll('#about-images img');
+        let currentIndex = 0;
+
+        function rotateImages() {
+            images[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % images.length;
+            images[currentIndex].classList.add('active');
+        }
+
+        setInterval(rotateImages, 2000);
+    </script>
 </body>
-
 </html>
