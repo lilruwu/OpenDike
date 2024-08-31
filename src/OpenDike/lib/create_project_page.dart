@@ -28,6 +28,9 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
   }
 
   void _navigateToResultsPage() {
+    // Save the project name before navigation
+    _saveProjectName();
+
     if (_savedProjectName.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please enter a project name')),
@@ -60,45 +63,62 @@ class _CreateProjectPageState extends State<CreateProjectPage> {
             border: InputBorder.none,
           ),
           style: const TextStyle(fontSize: 20),
-          onSubmitted: (value) {
-            _saveProjectName();
-          },
+          // No need to use onSubmitted here
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const Text(
-              'Select an option:',
-              style: TextStyle(fontSize: 20),
+      body: Row(
+        children: <Widget>[
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const Text(
+                    'Select an option:',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  const SizedBox(height: 10),
+                  DropdownButton<String>(
+                    value: _selectedOption,
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _selectedOption = newValue!;
+                      });
+                    },
+                    items: ['Hypothesis 1'].map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                  ),
+                  const SizedBox(height: 20),
+                  Expanded(
+                    child: Hypothesis1Form(key: _formKey),
+                  ),
+                  ElevatedButton(
+                    onPressed: _navigateToResultsPage,
+                    child: const Text('Calculate'),
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(height: 10),
-            DropdownButton<String>(
-              value: _selectedOption,
-              onChanged: (String? newValue) {
-                setState(() {
-                  _selectedOption = newValue!;
-                });
-              },
-              items: ['Hypothesis 1'].map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
+          ),
+          Expanded(
+            flex: 1,
+            child: Center(
+              child: Image.asset(
+                'assets/default.jpg',
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return const Center(child: Text('Image not found'));
+                },
+              ),
             ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: Hypothesis1Form(key: _formKey),
-            ),
-            ElevatedButton(
-              onPressed: _navigateToResultsPage,
-              child: const Text('Calculate'),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
